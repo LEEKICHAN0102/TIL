@@ -1,9 +1,9 @@
-#Youtube-clone-coding-express.md
+# Youtube-clone-coding-express.md
 
 express
 use express to use app
 
-###Server
+### Server
 
 서버는 인터넷에 연결되어 있으며 24시간 꺼지지 않는 컴퓨터이다.
 
