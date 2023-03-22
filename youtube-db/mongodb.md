@@ -66,3 +66,30 @@
 > mongoose 또한 동일하게 적용 schema.pre('Name',async function())과 같은형태
 > 주의 해야 할 점은 model이 생성되기 전에 선언해주어야한다는 것.
 > https://mongoosejs.com/docs/middleware.html
+
+# option.sort()
+
+> SELECT문으로 검색된 데이터를 오름차순(ASC)이나 내림차순(DESC)으로 정렬 시킬 때 사용한다.
+> const videos = await Video.find({}).sort({ createdAt: "desc" }); 체작 된 순서 내림차순 정렬
+
+# 정규 표현식
+
+> mongodb 자체 $regex 연산자> regex: new RegExp(keyword, "i")
+> search 할 때 항상 정확한 video 명을 찾기 어렵기 떄문에 정규식 연산자를 사용. i 는 대소문자를 구별하지 않기 위해 사용한다.
+
+# bcrypt
+
+> User 계정 설정 시 패스워드가 그대로 DB에 저장 되는데 보안을 위해 password hashing 하였음. hash는 입력 값이 있으면 출력 값은 항상 고정 된 값으로 나오며 알아보기 힘든 불규칙적인 구성을 가지고 있다.
+
+> pre 미들웨어 기능은 각 미들웨어가 다음을 호출할 때 차례로 실행됩니다. https://mongoosejs.com/docs/middleware.html#pre
+> userSchema.pre("save", async function () {
+> this.password = await bcryptjs.hash(this.password, 5);
+> console.log("Hash Password:", this.password);
+> });
+
+# status code
+
+> https://developer.mozilla.org/en-US/docs/Web/HTTP/Status 공문
+> 100,200,300,400 logger를 통하여 볼 수 있다.
+> login을 진행 할 때 DB에 맞지 않는 username이나 password를 입력하여도 브라우저에서 저장 하겠습니까? 라는 alert를 확인할 수 있는데, logger에서 200번에 해당하는 status code를 얻었기 떄문에 문제가 없다고 판단한 것.
+> 따라서 return res.status(400).render 를 통해 잘못 입력하였을 때 400 Bad Request 를 받게 설정 400: 서버는 클라이언트 오류로 인식되는 것으로 인해 요청을 처리할 수 없거나 처리하지 않을 것입니다(예: 잘못된 형식의 요청 구문, 잘못된 요청 메시지 프레이밍 또는 사기성 요청 라우팅).
